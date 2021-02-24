@@ -82,3 +82,11 @@ Team process_games(vector<string> games) {
     return current_team;
 }
 
+void record_file(vector<Team> teams_table, string dir_name) {
+    string path = get_current_dir() + "\\" + dir_name + "\\results.csv";
+    ofstream results(path, ios::trunc);
+    for (int i = 0; i < teams_table.size(); i++) {
+        results << teams_table[i].nametag << "," << teams_table[i].points << "\n";
+    }
+    results.close();
+}
