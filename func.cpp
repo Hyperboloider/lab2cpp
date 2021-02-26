@@ -97,21 +97,16 @@ vector<Team> parse_csv_files(string path, vector<string> csvs) {
 
     for (int i = 0; i < csvs.size(); i++) {
         ifstream in(path + "\\" + csvs[i]);
-        cout << path + "\\" + csvs[i] << endl;
         if (in.is_open()) {
             int number_of_lines;
             in >> number_of_lines;
-            //cout << number_of_lines << endl;
             string tmp;
             getline(in, tmp);
 
-
-            for (int i = 0; i < number_of_lines; i++) {
+            for (int j = 0; j < number_of_lines; j++) {
                 string raw_line;
                 getline(in, raw_line);
-                //cout << raw_line << endl;
                 vector<string> parsed_line = parse_line(raw_line);
-                
                 parsed_team_lines.push_back(process_games(parsed_line));
             }
         } else {
@@ -121,4 +116,3 @@ vector<Team> parse_csv_files(string path, vector<string> csvs) {
     }    
     return parsed_team_lines;
 }
-
