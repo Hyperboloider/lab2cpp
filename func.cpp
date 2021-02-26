@@ -90,3 +90,35 @@ void record_file(vector<Team> teams_table, string dir_name) {
     }
     results.close();
 }
+
+vector<Team> parse_csv_files(string path, vector<string> csvs) {
+    string line;
+    vector<Team> parsed_team_lines;
+
+    for (int i = 0; i < csvs.size(); i++) {
+        ifstream in(path + "\\" + csvs[i]);
+        cout << path + "\\" + csvs[i] << endl;
+        if (in.is_open()) {
+            int number_of_lines;
+            in >> number_of_lines;
+            //cout << number_of_lines << endl;
+            string tmp;
+            getline(in, tmp);
+
+
+            for (int i = 0; i < number_of_lines; i++) {
+                string raw_line;
+                getline(in, raw_line);
+                //cout << raw_line << endl;
+                vector<string> parsed_line = parse_line(raw_line);
+                
+                parsed_team_lines.push_back(process_games(parsed_line));
+            }
+        } else {
+            cout << "not open" << endl;
+        }
+        in.close();
+    }    
+    return parsed_team_lines;
+}
+

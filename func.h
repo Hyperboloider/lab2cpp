@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include "func.cpp"
 
 using namespace std;
 
@@ -13,3 +13,4 @@ vector<string> get_csv_names(string);
 vector<string> parse_line(string);
 Team process_games(vector<string>);
 void record_file(vector<Team>, string);
+vector<Team> parse_csv_files(string, vector<string>);
