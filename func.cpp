@@ -1,3 +1,4 @@
+#include "func.h"
 #include <iostream>
 #include <direct.h>
 #include <io.h>
@@ -8,10 +9,7 @@
 
 using namespace std;
 
-struct Team {
-    string nametag;
-    int points;
-};
+
 
 string get_directory_name() {
     string name;
