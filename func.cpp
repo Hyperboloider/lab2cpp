@@ -67,13 +67,19 @@ Team process_games(vector<string> games) {
     int points_total = 0;
     for (int i = 1; i < games.size(); i++) {
         string game = games[i];
-        int points_team = stoi(game.substr(0, game.find(":")));
-        int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
-        if (points_team > points_enemy) {
-            points_total += 3;
-        }
-        else if (points_team == points_enemy) {
+        if (game == "_" || game == "-") {
             points_total++;
+            cout << "character" << endl;
+        }
+        else {
+            int points_team = stoi(game.substr(0, game.find(":")));
+            int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
+            if (points_team > points_enemy) {
+                points_total += 3;
+            }
+            else if (points_team == points_enemy) {
+                points_total++;
+            }
         }
     }
     current_team.points = points_total;
