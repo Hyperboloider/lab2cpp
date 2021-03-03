@@ -125,11 +125,21 @@ vector<Team> parse_csv_files(string path, vector<string> csvs) {
     return parsed_team_lines;
 }
 
-void sort_team_list(vector<Team>& teams) {
+void sort_team_list(vector<Team> &teams) {
     Team temp;
     for (int i = 0; i < teams.size() - 1; i++)
         for (int j = 0; j < teams.size() - 1 - i; j++) {
+            if (teams[j].points < teams[j+1].points) {
+                temp = teams[j+1];
+                teams[j+1] = teams[j];
+                teams[j] = temp;
+            }
             if (teams[j].points < teams[j + 1].points) {
+                temp = teams[j + 1];
+                teams[j + 1] = teams[j];
+                teams[j] = temp;
+            }
+            else if (teams[j].points == teams[j + 1].points && teams[j].difference < teams[j + 1].difference) {
                 temp = teams[j + 1];
                 teams[j + 1] = teams[j];
                 teams[j] = temp;
