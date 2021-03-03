@@ -12,7 +12,7 @@ struct Team {
 
 string get_directory_name();
 string get_current_dir();
-vector<string> get_csv_names(string);
+vector<string> get_csv_names(string&);
 vector<string> parse_line(string);
 Team process_games(vector<string>);
 void record_file(vector<Team>, string);

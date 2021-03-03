@@ -25,14 +25,20 @@ string get_current_dir() {
     return current_working_dir;
 }
 
-vector<string> get_csv_names(string path) {
+vector<string> get_csv_names(string &path) {
     vector <string> csvs;
     _finddata_t files;
     intptr_t process = _findfirst(path.c_str(), &files);
+    while(process == -1) {
+        cout << "Directory doesn`t exist or doesn`t have files" << endl;
+        string dir_name = get_directory_name();
+        path = get_current_dir() + "\\" + dir_name;
+        process = _findfirst((path+ +"\\*.csv").c_str(), &files);
+    }
     do {
-        csvs.push_back(files.name);
+       csvs.push_back(files.name);
     } while (_findnext(process, &files) == 0);
-    _findclose(process);
+    _findclose(process);    
     return csvs;
 }
 
@@ -108,6 +114,7 @@ vector<Team> parse_csv_files(string path, vector<string> csvs) {
                 parsed_team_lines.push_back(process_games(parsed_line));
             }
         } else {
+            cout << path + "\\" + csvs[i] << endl;
             cout << "not open" << endl;
         }
         in.close();
