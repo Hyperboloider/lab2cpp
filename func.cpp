@@ -72,11 +72,11 @@ Team process_games(vector<string> games) {
         string game = games[i];
         if (game == "_" || game == "-") {
             points_total++;
-            cout << "character" << endl;
         }
         else {
             int points_team = stoi(game.substr(0, game.find(":")));
             int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
+            current_team.difference = points_team - points_enemy;
             if (points_team > points_enemy) {
                 points_total += 3;
             }
