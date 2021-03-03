@@ -1,3 +1,4 @@
+#include "func.h"
 #include <iostream>
 #include <direct.h>
 #include <io.h>
@@ -8,10 +9,7 @@
 
 using namespace std;
 
-struct Team {
-    string nametag;
-    int points;
-};
+
 
 string get_directory_name() {
     string name;
@@ -27,20 +25,14 @@ string get_current_dir() {
     return current_working_dir;
 }
 
-vector<string> get_csv_names(string &path) {
+vector<string> get_csv_names(string path) {
     vector <string> csvs;
     _finddata_t files;
     intptr_t process = _findfirst(path.c_str(), &files);
-    while(process == -1) {
-        cout << "Directory doesn`t exist or doesn`t have files" << endl;
-        string dir_name = get_directory_name();
-        path = get_current_dir() + "\\" + dir_name;
-        process = _findfirst((path+ +"\\*.csv").c_str(), &files);
-    }
     do {
-       csvs.push_back(files.name);
+        csvs.push_back(files.name);
     } while (_findnext(process, &files) == 0);
-    _findclose(process);    
+    _findclose(process);
     return csvs;
 }
 
@@ -115,23 +107,23 @@ vector<Team> parse_csv_files(string path, vector<string> csvs) {
                 vector<string> parsed_line = parse_line(raw_line);
                 parsed_team_lines.push_back(process_games(parsed_line));
             }
-        } else {
-            cout << path + "\\" + csvs[i] << endl;
+        }
+        else {
             cout << "not open" << endl;
         }
         in.close();
-    }    
+    }
     return parsed_team_lines;
 }
 
-void sort_team_list(vector<Team> &teams) {
+void sort_team_list(vector<Team>& teams) {
     Team temp;
     for (int i = 0; i < teams.size() - 1; i++)
         for (int j = 0; j < teams.size() - 1 - i; j++) {
-            if (teams[j].points < teams[j+1].points) {
-                temp = teams[j+1];
-                teams[j+1] = teams[j];
+            if (teams[j].points < teams[j + 1].points) {
+                temp = teams[j + 1];
+                teams[j + 1] = teams[j];
                 teams[j] = temp;
             }
-        } 
+        }
 }
