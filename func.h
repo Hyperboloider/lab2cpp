@@ -1,14 +1,11 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include "func.cpp"
 
 using namespace std;
 
-struct Team {
-    string nametag;
-    int points;
-};
+struct Team
 
 string get_directory_name();
 string get_current_dir();

@@ -1,4 +1,4 @@
-#include "func.h"
+#include "func.cpp"
 
 
 int main(int argc, char *argv[]) {

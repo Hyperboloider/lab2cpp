@@ -1,4 +1,3 @@
-#include "func.h"
 #include <iostream>
 #include <direct.h>
 #include <io.h>
@@ -9,7 +8,11 @@
 
 using namespace std;
 
-
+struct Team  {
+    string nametag;
+    int points;
+    int difference;
+};
 
 string get_directory_name() {
     string name;
@@ -69,6 +72,7 @@ Team process_games(vector<string> games) {
         string game = games[i];
         int points_team = stoi(game.substr(0, game.find(":")));
         int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
+        current_team.difference = points_team - points_enemy;
         if (points_team > points_enemy) {
             points_total += 3;
         }
@@ -84,7 +88,7 @@ void record_file(vector<Team> teams_table, string dir_name) {
     string path = get_current_dir() + "\\" + dir_name + "\\results.csv";
     ofstream results(path, ios::trunc);
     for (int i = 0; i < teams_table.size(); i++) {
-        results << teams_table[i].nametag << "," << teams_table[i].points << "\n";
+        results << teams_table[i].nametag << ";" << teams_table[i].points << ";" << teams_table[i].difference << "\n";
     }
     results.close();
 }
@@ -124,5 +128,15 @@ void sort_team_list(vector<Team> &teams) {
                 teams[j+1] = teams[j];
                 teams[j] = temp;
             }
-        } 
+            if (teams[j].points < teams[j + 1].points) {
+                temp = teams[j + 1];
+                teams[j + 1] = teams[j];
+                teams[j] = temp;
+            }
+            else if (teams[j].points == teams[j + 1].points && teams[j].difference < teams[j + 1].difference) {
+                temp = teams[j + 1];
+                teams[j + 1] = teams[j];
+                teams[j] = temp;
+            }
+        }
 }
