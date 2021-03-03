@@ -1,3 +1,4 @@
+#include "func.h"
 #include <iostream>
 #include <direct.h>
 #include <io.h>
@@ -8,11 +9,7 @@
 
 using namespace std;
 
-struct Team  {
-    string nametag;
-    int points;
-    int difference;
-};
+
 
 string get_directory_name() {
     string name;
@@ -72,11 +69,11 @@ Team process_games(vector<string> games) {
         string game = games[i];
         if (game == "_" || game == "-") {
             points_total++;
-            cout << "character" << endl;
         }
         else {
             int points_team = stoi(game.substr(0, game.find(":")));
             int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
+            current_team.difference = points_team - points_enemy;
             if (points_team > points_enemy) {
                 points_total += 3;
             }
@@ -132,11 +129,6 @@ void sort_team_list(vector<Team> &teams) {
             if (teams[j].points < teams[j+1].points) {
                 temp = teams[j+1];
                 teams[j+1] = teams[j];
-                teams[j] = temp;
-            }
-            if (teams[j].points < teams[j + 1].points) {
-                temp = teams[j + 1];
-                teams[j + 1] = teams[j];
                 teams[j] = temp;
             }
             else if (teams[j].points == teams[j + 1].points && teams[j].difference < teams[j + 1].difference) {
