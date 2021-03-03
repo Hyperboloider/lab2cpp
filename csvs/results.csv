@@ -1,20 +1,20 @@
-Everton,23
-AFC Bournemouth,22
-Crystal Palace,18
-Sunderland,18
-Chelsea,17
-Leicester City,17
-Manchester City,16
-Burnley,15
-Liverpool,14
-Manchester United,14
-Middlesbrough,14
-Hull City,13
-Stoke City,13
-Watford,12
-West Ham United,12
-Tottenham Hotspur,10
-West Bromwich Albion,10
-Arsenal,9
-Swansea City,8
-Southampton,6
+Everton;23;3
+AFC Bournemouth;22;1
+Crystal Palace;18;4
+Sunderland;18;-1
+Chelsea;17;3
+Leicester City;17;0
+Manchester City;16;-1
+Burnley;15;0
+Manchester United;14;4
+Liverpool;14;2
+Middlesbrough;14;0
+Stoke City;13;1
+Hull City;13;-1
+Watford;12;2
+West Ham United;12;-1
+West Bromwich Albion;10;-2
+Tottenham Hotspur;10;-3
+Arsenal;9;-2
+Swansea City;8;0
+Southampton;6;-2
