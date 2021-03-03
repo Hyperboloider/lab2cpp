@@ -70,14 +70,19 @@ Team process_games(vector<string> games) {
     int points_total = 0;
     for (int i = 1; i < games.size(); i++) {
         string game = games[i];
-        int points_team = stoi(game.substr(0, game.find(":")));
-        int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
-        current_team.difference = points_team - points_enemy;
-        if (points_team > points_enemy) {
-            points_total += 3;
-        }
-        else if (points_team == points_enemy) {
+        if (game == "_" || game == "-") {
             points_total++;
+            cout << "character" << endl;
+        }
+        else {
+            int points_team = stoi(game.substr(0, game.find(":")));
+            int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
+            if (points_team > points_enemy) {
+                points_total += 3;
+            }
+            else if (points_team == points_enemy) {
+                points_total++;
+            }
         }
     }
     current_team.points = points_total;
@@ -111,29 +116,20 @@ vector<Team> parse_csv_files(string path, vector<string> csvs) {
                 vector<string> parsed_line = parse_line(raw_line);
                 parsed_team_lines.push_back(process_games(parsed_line));
             }
-        } else {
+        }
+        else {
             cout << "not open" << endl;
         }
         in.close();
-    }    
+    }
     return parsed_team_lines;
 }
 
-void sort_team_list(vector<Team> &teams) {
+void sort_team_list(vector<Team>& teams) {
     Team temp;
     for (int i = 0; i < teams.size() - 1; i++)
         for (int j = 0; j < teams.size() - 1 - i; j++) {
-            if (teams[j].points < teams[j+1].points) {
-                temp = teams[j+1];
-                teams[j+1] = teams[j];
-                teams[j] = temp;
-            }
             if (teams[j].points < teams[j + 1].points) {
-                temp = teams[j + 1];
-                teams[j + 1] = teams[j];
-                teams[j] = temp;
-            }
-            else if (teams[j].points == teams[j + 1].points && teams[j].difference < teams[j + 1].difference) {
                 temp = teams[j + 1];
                 teams[j + 1] = teams[j];
                 teams[j] = temp;
