@@ -11,7 +11,6 @@ using namespace std;
 struct Team  {
     string nametag;
     int points;
-    int difference;
 };
 
 string get_directory_name() {
@@ -70,13 +69,8 @@ Team process_games(vector<string> games) {
     int points_total = 0;
     for (int i = 1; i < games.size(); i++) {
         string game = games[i];
-        if (game == "_" || game == "-") {
-            points_total++;
-        }
-        else {
             int points_team = stoi(game.substr(0, game.find(":")));
             int points_enemy = stoi(game.substr(game.find(":") + 1, string::npos));
-            current_team.difference = points_team - points_enemy;
             if (points_team > points_enemy) {
                 points_total += 3;
             }
@@ -84,7 +78,6 @@ Team process_games(vector<string> games) {
                 points_total++;
             }
         }
-    }
     current_team.points = points_total;
     return current_team;
 }
@@ -93,7 +86,7 @@ void record_file(vector<Team> teams_table, string dir_name) {
     string path = get_current_dir() + "\\" + dir_name + "\\results.csv";
     ofstream results(path, ios::trunc);
     for (int i = 0; i < teams_table.size(); i++) {
-        results << teams_table[i].nametag << ";" << teams_table[i].points << ";" << teams_table[i].difference << "\n";
+        results << teams_table[i].nametag << ";" << teams_table[i].points << "\n";
     }
     results.close();
 }
@@ -132,16 +125,6 @@ void sort_team_list(vector<Team> &teams) {
             if (teams[j].points < teams[j+1].points) {
                 temp = teams[j+1];
                 teams[j+1] = teams[j];
-                teams[j] = temp;
-            }
-            if (teams[j].points < teams[j + 1].points) {
-                temp = teams[j + 1];
-                teams[j + 1] = teams[j];
-                teams[j] = temp;
-            }
-            else if (teams[j].points == teams[j + 1].points && teams[j].difference < teams[j + 1].difference) {
-                temp = teams[j + 1];
-                teams[j + 1] = teams[j];
                 teams[j] = temp;
             }
         }
